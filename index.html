@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliott Betry | Développeur & Étudiant en Informatique</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES BRANDBOARD --- */
+        :root {
+            --bg-dark: #2f3436;      /* Fond principal (Gris anthracite) */
+            --bg-card: #3b3a50;      /* Fond des cartes (Bleu ardoise) */
+            --accent-gold: #ca9843;  /* Actions & Focus (Doré) */
+            --accent-brown: #9f694b; /* Détails (Marron terre) */
+            --text-main: #f0d5b3;    /* Texte (Beige clair) */
+            --text-white: #ffffff;
+            
+            --font-logo: 'Permanent Marker', cursive;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; transition: 0.3s; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- LAYOUT UTILS --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .section-padding { padding: 5rem 0; }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-brown);
+            margin-top: 10px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: rgba(47, 52, 54, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--bg-card);
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-logo);
+            font-size: 1.5rem;
+            color: var(--text-white);
+        }
+        .logo span { color: var(--accent-gold); }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; color: var(--text-white); }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at top right, #3b3a50 0%, #2f3436 60%);
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .highlight { color: var(--accent-gold); }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn, .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            font-weight: 700;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+        
+        .btn-contact {
+            background-color: var(--accent-brown);
+            color: var(--text-white);
+            border: 2px solid var(--accent-brown);
+        }
+        
+        .btn-contact:hover {
+            background-color: transparent;
+            color: var(--accent-brown);
+            border-color: var(--accent-brown);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn, .btn-contact {
+                width: 100%;
+            }
+        }
+
+        /* --- SKILLS (TECH STACK) --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            background-color: #403f56;
+        }
+
+        .skill-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-brown);
+            display: block;
+        }
+        
+        /* Couleur spécifique pour différencier un peu les icônes au survol */
+        .skill-item:hover i { color: var(--text-white); }
+
+        .skill-item span { font-weight: 700; display: block; }
+
+        /* --- PROJECTS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            border-top: 4px solid var(--accent-brown);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover { transform: translateY(-5px); }
+
+        .card-img-placeholder {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        
+        .card-content h3 {
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-title);
+        }
+        
+        .card-desc {
+            font-size: 0.9rem; 
+            color: #bbb;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .tech-tags {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background-color: rgba(202, 152, 67, 0.2); 
+            color: var(--accent-gold);
+            border-radius: 50px;
+        }
+
+        .card-links a { 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            color: var(--text-white); 
+            margin-right: 15px;
+        }
+        .card-links a:hover { color: var(--accent-gold); }
+
+        /* --- VALUES --- */
+        .values-section { background-color: #262a2c; }
+        
+        .values-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .value-badge {
+            border: 1px solid var(--accent-brown);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: var(--accent-brown);
+            font-family: var(--font-logo);
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        
+        .value-badge:hover {
+            background-color: var(--accent-brown);
+            color: var(--text-white);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: #25282a;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: var(--text-main);
+        }
+        .social-icons a:hover { color: var(--accent-gold); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            .btn-outline { margin-left: 0; margin-top: 1rem; display: block; text-align: center;}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav">
+            <div class="logo">EB.</div>
+            <ul class="nav-links">
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero" id="about">
+        <div class="container hero-text">
+            <p style="color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Portefolio</p>
+            <h1>Bonjour, je suis <span class="highlight">Eliott Betry</span>.</h1>
+            <p style="font-size: 1.1rem; max-width: 650px; margin-bottom: 2.5rem; color: #ccc;">
+                Étudiant en Informatique passionné par le développement C++ et Web. 
+                <br><br>
+                <span style="color: var(--text-white); font-weight: 400;">
+                    Je suis actuellement à la recherche d'un stage d'une durée minimale de 8 semaines à partir du 7 avril.
+                </span>
+                <br>
+                Une idée ? Une opportunité ? N'hésitez pas à m'écrire.
+            </p>
+            <div>
+                <a href="#projects" class="btn">
+                    Voir mes projets
+                </a>
+                
+                <a href="mailto:betry.eliott@gmail.com" class="btn-contact">
+                    </i> Me contacter
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Stack Technique</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>C++</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-php"></i>
+                    <span>PHP</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-symfony"></i>
+                    <span>Symfony</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <span>JavaScript</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML5</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS3</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <span>SQL</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-python"></i>
+                    <span>Python</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-padding" style="background-color: #2b2f31;">
+        <div class="container">
+            <h2 class="section-title">Projets Principaux</h2>
+            <div class="projects-grid">
+                
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #54342a;">
+                        <i class="fab fa-steam fa-3x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Clone Page Steam</h3>
+                        <p class="card-desc">Projet de fin d'année. Développement d'un site web dynamique affichant des jeux vidéo à partir d'une base de données dédiée.</p>
+                        <div class="tech-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Base de données</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/Clone_Page_Steam" target="_blank"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #9f694b;">
+                        <i class="fas fa-calendar fa-3x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Ge'Event - Gestion d'événements</h3>
+                        <p class="card-desc">Application web complète développée en équipe. Système d'inscription, cartographie interactive, espace membre et intégration d'un chatbot IA.</p>
+                        <div class="tech-tags">
+                            <span class="tag">Symfony 6</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">EasyAdmin</span>
+                            <span class="tag">IA</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/GeEvent" target="_blank"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #ca9843;">
+                        <i class="fas fa-terminal fa-3x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Interpréteur de Commandes</h3>
+                        <p class="card-desc">Développement d'un interpréteur capable d'analyser et d'exécuter des instructions arithmétiques complexes. Gestion manuelle de la mémoire (pointeurs uniquement, sans STL).</p>
+                        <div class="tech-tags">
+                            <span class="tag">C++</span>
+                            <span class="tag">Algorithmique</span>
+                            <span class="tag">Pointeurs</span>
+                            <span class="tag">Make</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/Interpreteur_de_Commandes" target="_blank"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #2f3436;">
+                        <i class="fas fa-window-maximize fa-3x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Qt Chat System</h3>
+                        <p class="card-desc">Architecture Client/Serveur de messagerie instantanée. Gestion des sockets TCP, multithreading et interface graphique native.</p>
+                        <div class="tech-tags">
+                            <span class="tag">C++</span>
+                            <span class="tag">QT</span>
+                            <span class="tag">Network</span>
+                            <span class="tag">Sockets</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/qt_chatsysteme" target="_blank"><i class="fab fa-github"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding values-section">
+        <div class="container" style="text-align: center;">
+            <p style="color: var(--accent-gold); margin-bottom: 1rem; font-family: var(--font-title); font-style: italic;">"Le temps est précieux"</p>
+            <h2 class="section-title" style="font-size: 1.8rem; border: none; margin-bottom: 2rem;">Mes Valeurs</h2>
+            <div class="values-grid">
+                <span class="value-badge">Authenticité</span>
+                <span class="value-badge">Respect</span>
+                <span class="value-badge">Autonomie</span>
+                <span class="value-badge">Confiance</span>
+                <span class="value-badge">Créativité</span>
+                <span class="value-badge">Fiabilité</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/eliott-betry-1224372b7/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/EliottBetr" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:betry.eliott@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2024 Eliott Betry. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
