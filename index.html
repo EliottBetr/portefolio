@@ -79,11 +79,11 @@
             padding: 1rem 0;
         }
 
-        /* CORRECTION : Ajout du point devant nav */
         .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -91,9 +91,17 @@
             font-size: 1.5rem;
             color: var(--text-white);
         }
+        .logo:hover { color: var(--accent-gold); }
         .logo span { color: var(--accent-gold); }
 
-        .nav-links { display: flex; gap: 2rem; }
+        .nav-links { 
+            display: flex; 
+            gap: 2rem; 
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
         .nav-links a { font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; color: var(--text-white); }
         .nav-links a:hover { color: var(--accent-gold); }
 
@@ -134,21 +142,25 @@
 
         .hero-buttons {
             display: flex;
+            flex-wrap: wrap; 
             gap: 1.5rem;
             margin-top: 2rem;
         }
 
-        .btn, .btn-contact {
+        .btn, .btn-contact, .btn-download {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.8rem 2rem;
             font-weight: 700;
             border-radius: 4px;
-            font-size: 1rem;
             transition: all 0.3s ease;
             cursor: pointer;
             gap: 10px;
+        }
+
+        .btn, .btn-contact {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
         }
 
         .btn {
@@ -173,6 +185,20 @@
             background-color: transparent;
             color: var(--accent-brown);
             border-color: var(--accent-brown);
+            transform: translateY(-3px);
+        }
+
+        .btn-download {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
             transform: translateY(-3px);
         }
 
@@ -277,38 +303,19 @@
             border-radius: 50px;
         }
 
+        .card-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .card-links a { 
             font-size: 0.9rem; 
             font-weight: 700; 
             color: var(--text-white); 
-            margin-right: 15px;
         }
+        
         .card-links a:hover { color: var(--accent-gold); }
-
-        .values-section { background-color: #262a2c; }
-        
-        .values-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .value-badge {
-            border: 1px solid var(--accent-brown);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            color: var(--accent-brown);
-            font-family: var(--font-logo);
-            letter-spacing: 1px;
-            font-size: 1.1rem;
-            transition: 0.3s;
-        }
-        
-        .value-badge:hover {
-            background-color: var(--accent-brown);
-            color: var(--text-white);
-        }
 
         footer {
             text-align: center;
@@ -325,11 +332,42 @@
         }
         .social-icons a:hover { color: var(--accent-gold); }
 
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--text-white);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
             .hero-text h1 { font-size: 2.5rem; }
-            .hero-buttons { flex-direction: column; width: 100%; }
-            .btn, .btn-contact { width: 100%; }
-            .btn-outline { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 1rem; margin-top: 1rem; }
+            .btn, .btn-contact, .btn-download { width: 100%; }
             
             .burger-menu {
                 display: block;
@@ -340,6 +378,7 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
+                transform: none;
                 background-color: rgba(47, 52, 54, 0.98);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
@@ -354,6 +393,11 @@
             .nav-links.active {
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
             }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
@@ -361,7 +405,7 @@
 
     <header>
         <div class="container nav">
-            <div class="logo">EB.</div>
+            <a href="#about" class="logo" aria-label="Retour à l'accueil">EB<span>.</span></a>
             
             <div class="burger-menu" id="burger-menu" aria-label="Menu de navigation" role="button">
                 <i class="fas fa-bars" aria-hidden="true"></i>
@@ -389,13 +433,19 @@
                 <br>
                 Une idée ? Une opportunité ? N'hésitez pas à m'écrire.
             </p>
+            
             <div class="hero-buttons">
                 <a href="#projects" class="btn">
                     Voir mes projets
                 </a>
-                
                 <a href="mailto:betry.eliott@gmail.com" class="btn-contact">
                     <i class="fas fa-envelope" aria-hidden="true"></i> Me contacter
+                </a>
+                <a href="cv.pdf" download class="btn-download" aria-label="Télécharger mon CV">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i> Mon CV
+                </a>
+                <a href="dossier_competences.pdf" download class="btn-download" aria-label="Télécharger mon dossier de compétences">
+                    <i class="fas fa-folder-open" aria-hidden="true"></i> Dossier de compétences
                 </a>
             </div>
         </div>
@@ -464,7 +514,8 @@
 
     <section id="projects" class="section-padding" style="background-color: #2b2f31;">
         <div class="container">
-            <h2 class="section-title">Projets Principaux</h2>
+            
+            <h2 class="section-title">Projets Universitaires</h2>
             <div class="projects-grid">
                 
                 <article class="project-card">
@@ -543,21 +594,67 @@
                 </article>
 
             </div>
-        </div>
-    </section>
 
-    <section class="section-padding values-section">
-        <div class="container" style="text-align: center;">
-            <p style="color: var(--accent-gold); margin-bottom: 1rem; font-family: var(--font-title); font-style: italic;">"Le temps est précieux"</p>
-            <h2 class="section-title" style="font-size: 1.8rem; border: none; margin-bottom: 2rem;">Mes Valeurs</h2>
-            <div class="values-grid">
-                <span class="value-badge">Authenticité</span>
-                <span class="value-badge">Respect</span>
-                <span class="value-badge">Autonomie</span>
-                <span class="value-badge">Confiance</span>
-                <span class="value-badge">Créativité</span>
-                <span class="value-badge">Fiabilité</span>
+            <h2 class="section-title" style="margin-top: 4rem;">Projets Personnels</h2>
+            <div class="projects-grid">
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #3b3a50;">
+                        <i class="fas fa-stopwatch fa-3x" aria-hidden="true" style="color: var(--accent-gold);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Chronomètre Pomodoro</h3>
+                        <p class="card-desc">Application web interactive de productivité paramétrable. Alternance entre sessions de travail et de pauses avec manipulation du DOM en temps réel.</p>
+                        <div class="tech-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/pomodoro-app" target="_blank"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                            <a href="https://eliottbetr.github.io/pomodoro-app/" target="_blank" style="color: var(--accent-gold);"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Voir l'app</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #3b3a50;">
+                        <i class="fas fa-chart-line fa-3x" aria-hidden="true" style="color: var(--accent-gold);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Crypto Dashboard CLI</h3>
+                        <p class="card-desc">Script Python en ligne de commande interrogeant l'API publique de CoinGecko pour afficher le cours et la variation des cryptomonnaies en temps réel.</p>
+                        <div class="tech-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">API REST</span>
+                            <span class="tag">JSON</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/Python-Crypto-Dashboard" target="_blank"><i class="fab fa-github" aria-hidden="true"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-img-placeholder" style="background-color: #3b3a50;">
+                        <i class="fas fa-link fa-3x" aria-hidden="true" style="color: var(--accent-gold);"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Raccourcisseur d'URL</h3>
+                        <p class="card-desc">Mini-application web permettant de générer des liens courts uniques (identifiants aléatoires) et d'assurer une redirection propre via des règles Apache.</p>
+                        <div class="tech-tags">
+                            <span class="tag">PHP (PDO)</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">Apache</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/EliottBetr/url-shortener-php" target="_blank"><i class="fab fa-github" aria-hidden="true"></i> Code Source</a>
+                        </div>
+                    </div>
+                </article>
+
             </div>
+
         </div>
     </section>
 
@@ -575,7 +672,12 @@
         </div>
     </footer>
 
+    <a href="#about" class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </a>
+
     <script>
+        // Gestion du menu burger
         const burgerMenu = document.getElementById('burger-menu');
         const navLinks = document.getElementById('nav-links');
         const icon = burgerMenu.querySelector('i');
@@ -598,6 +700,16 @@
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
             });
+        });
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
         });
     </script>
 </body>
